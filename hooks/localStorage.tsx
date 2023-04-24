@@ -2,19 +2,6 @@ import { useEffect } from 'react'
 import useLocalStorageState from 'use-local-storage-state'
 import { LikeStorage } from '../types/types'
 
-// export const writeNft = () => {
-//     const [orig, setOrig] = useLocalStorageState<LikeStorage>("dataKey", {
-//         defaultValue: {},
-//       })
-//     useEffect(() => {
-//         const obj: LikeStorage = JSON.parse(
-//           localStorage.getItem("dataKey") || JSON.stringify({})
-//         )
-
-//         setOrig(obj)
-//       }, [])
-// }
-
 export const GetNfts = () => {
     const [nfts, setNfts] = useLocalStorageState<LikeStorage>('dataKey', {
         defaultValue: {},

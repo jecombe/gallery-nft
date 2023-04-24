@@ -32,24 +32,30 @@ div.desc {
 }
 
 
-.signMe {
+/*Signature*/
+.signature {
+  text-align: center;
+
+}
+
+.btnSign {
+
   color: white;
   margin: 20px;
   background-color:rgba(211, 220, 50, 0.6);
- position: relative;
-  left: 50%;
-  size: 100px;
-  border: none;
+
   padding: 15px 32px;
-  text-align: center;
+  /* text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  cursor: pointer;
+  cursor: pointer; 
+*/  
 
 }
 
 
+/*PAGINATION*/
 
 .pagination {
   display: flex;
@@ -88,10 +94,7 @@ div.desc {
 }
 
 
-
-
-
-/*test navBar*/
+/*Menu*/
 
 .navbar {
   display: grid;
@@ -120,6 +123,8 @@ div.desc {
   padding: 5px;
 }
 
+/*Grid*/
+
   .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -133,20 +138,23 @@ div.desc {
     padding: 1em;
     border-top: 4px solid var(--clr-primary);
     border: 2mm ridge rgba(211, 220, 50, 0.6); 
-
-
-    
   }
+
+  /*Attribute */
 
   .attribute {
     color: #f1a707;
   }
 
   .attributeKey {
-    color: rgb(203, 196, 196);
-    
-    
+    color: rgb(203, 196, 196); 
   }
+
+  .alertSign {
+    font-size: 15px;
+    color: red;
+  }
+  /*Media queries*/
 
   @media screen and (max-width: 550px) {
     .cards {

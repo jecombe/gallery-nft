@@ -25,9 +25,7 @@ const Likes = () => {
         <>
             <h1 className={styles.title}>NFTs likes</h1>
 
-            <p className={styles.description}>
-                which addresses have liked each NFT.
-            </p>
+            <p className={styles.description}>NFTs likes by peoples</p>
 
             <div className={styles.cards}>
                 {!nfts ? (

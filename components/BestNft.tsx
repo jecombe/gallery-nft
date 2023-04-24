@@ -35,6 +35,7 @@ const BestNft = () => {
     return (
         <>
             <h1 className={styles.title}>Top Nft like</h1>
+            <p className={styles.description}>List of most popular NFT</p>
             <div className={styles.cards}>{renderBest()}</div>
         </>
     )

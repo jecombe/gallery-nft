@@ -1,10 +1,5 @@
 import styles from '../styles/Home.module.css'
-import {
-    ConnectWallet,
-    MediaRenderer,
-    ThirdwebNftMedia,
-    useSDK,
-} from '@thirdweb-dev/react'
+import { MediaRenderer, useSDK } from '@thirdweb-dev/react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
@@ -23,12 +18,12 @@ import { paginate } from '../paginate'
 
 const Collections = ({ nfts }: Nfts) => {
     const address: string | undefined = useAddress()
-
+    const [signature, setSignature] = useState('')
     const [currentPage, setCurrentPage] = useState<number>(1)
     const pageSize: number = 10
     const { data, setData } = SetNfts()
     const sdk = useSDK()
-    const message: string = 'please sign me !'
+    const message: string = 'please sign mrereee !'
 
     const paginatedPosts = paginate(nfts, currentPage, pageSize)
 
@@ -36,17 +31,18 @@ const Collections = ({ nfts }: Nfts) => {
         setCurrentPage(page)
     }
 
-    const manageLike = (
-        nft: string,
-        addr: string | undefined,
-        image: string
-    ) => {
-        if (!addr) return
+    const manageLike = (nft: string, image: string) => {
+        if (!signature)
+            return alert(
+                'If you want like this nft you need to sign with button'
+            )
 
-        if (!data[nft]) data[nft] = { addresses: [addr], image }
+        if (!address) return
+
+        if (!data[nft]) data[nft] = { addresses: [address], image }
         else if (data[nft]) {
-            const getAddress = getElement(data[nft].addresses, addr)
-            if (!getAddress) addElement(data[nft].addresses, addr)
+            const getAddress = getElement(data[nft].addresses, address)
+            if (!getAddress) addElement(data[nft].addresses, address)
             else {
                 deleteElement(
                     data[nft].addresses,
@@ -74,8 +70,20 @@ const Collections = ({ nfts }: Nfts) => {
         if (!sig) {
             throw new Error('"No signature')
         }
+        setSignature(sig)
     }
 
+    const renderLike = (name: string) => {
+        return (
+            <>
+                {getNftLikeStorage(name, address) ? (
+                    <AiFillHeart fontSize="25px" />
+                ) : (
+                    <AiOutlineHeart fontSize="25px" />
+                )}
+            </>
+        )
+    }
     const renderNft = ({ metadata }: Nft) => {
         const parseImage: string = parseSrc(metadata.image)
 
@@ -83,16 +91,8 @@ const Collections = ({ nfts }: Nfts) => {
             <>
                 <MediaRenderer src={metadata.image} />
 
-                <button
-                    onClick={() =>
-                        manageLike(metadata.name, address, parseImage)
-                    }
-                >
-                    {getNftLikeStorage(metadata.name, address) ? (
-                        <AiFillHeart fontSize="25px" />
-                    ) : (
-                        <AiOutlineHeart fontSize="25px" />
-                    )}
+                <button onClick={() => manageLike(metadata.name, parseImage)}>
+                    {renderLike(metadata.name)}
                 </button>
             </>
         )
@@ -124,10 +124,23 @@ const Collections = ({ nfts }: Nfts) => {
     return (
         <>
             <h1 className={styles.title}>NFT GALLERY!</h1>
-            <div>
-                <button className={styles.signMe} onClick={signMessage}>
-                    Sign Me !
-                </button>
+            <p className={styles.description}>All NFTs on collection 20Mint</p>
+            <div className={styles.signature}>
+                {signature ? (
+                    <p>Already signate</p>
+                ) : (
+                    <>
+                        <p className={styles.alertSign}>
+                            [!] you need to signate before like nft [!]
+                        </p>
+                        <button
+                            className={styles.btnSign}
+                            onClick={signMessage}
+                        >
+                            Sign Me !
+                        </button>
+                    </>
+                )}
             </div>
 
             <div className={styles.cards}>{renderNfts()}</div>
