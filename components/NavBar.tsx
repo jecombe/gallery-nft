@@ -11,11 +11,11 @@ const Navbar = () => {
             <div className={styles.menus}>
                 <div>
                     {' '}
-                    <Link href="/">Gallery Nfts</Link>
+                    <Link href="/">Gallery NFTs</Link>
                 </div>
                 <div>
                     {' '}
-                    <Link href="/likes">Likes NFTS</Link>
+                    <Link href="/likes">Likes NFTs</Link>
                 </div>
                 <div>
                     {' '}

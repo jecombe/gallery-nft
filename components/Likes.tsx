@@ -7,13 +7,9 @@ const Likes = () => {
 
     const renderNft = (nft: string) => {
         return (
-            <div className={styles.gridItem} key={nft}>
+            <div className={styles.card} key={nft}>
                 <h2 className={styles.titleNft}>{nft}</h2>
-                <MediaRenderer
-                    src={nfts[nft].image}
-                    height="200px"
-                    width="200px"
-                />
+                <MediaRenderer src={nfts[nft].image} />
                 <p>Number likes: {nfts[nft].addresses.length}</p>
                 {nfts[nft].addresses.map((e: string) => (
                     <li className={styles.list} key={e}>
@@ -26,14 +22,14 @@ const Likes = () => {
     }
 
     return (
-        <div className={styles.grilleTitle}>
+        <>
             <h1 className={styles.title}>NFTs likes</h1>
 
             <p className={styles.description}>
                 which addresses have liked each NFT.
             </p>
 
-            <div className={styles.grille}>
+            <div className={styles.cards}>
                 {!nfts ? (
                     <h1>Loading...</h1>
                 ) : (
@@ -42,7 +38,7 @@ const Likes = () => {
                     })
                 )}
             </div>
-        </div>
+        </>
     )
 }
 export default Likes

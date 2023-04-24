@@ -6,20 +6,19 @@ const BestNft = () => {
     const { nfts } = GetNfts()
 
     const renderBest = () => {
-        let lgt: number = 1
+        let length: number = 1
         return Object.keys(nfts).map((e) => {
-            if (nfts[e].addresses.length > lgt) {
-                lgt = nfts[e].addresses.length
+            if (nfts[e].addresses.length > length) {
+                length = nfts[e].addresses.length
                 return (
                     <>
-                        <div className={styles.gallery} key="test">
+                        <div className={styles.card} key="card">
                             <h2 className={styles.titleNft}>{e}</h2>
-                            <MediaRenderer
-                                src={nfts[e].image}
-                                height="200px"
-                                width="200px"
-                            />
+
+                            <MediaRenderer src={nfts[e].image} />
+
                             <p>Number likes: {nfts[e].addresses.length}</p>
+
                             {nfts[e].addresses.map((e) => (
                                 <li className={styles.list} key={e}>
                                     {' '}
@@ -34,10 +33,10 @@ const BestNft = () => {
     }
 
     return (
-        <div className={styles.grilleTitle}>
+        <>
             <h1 className={styles.title}>Top Nft like</h1>
-            <div className={styles.grille}>{renderBest()}</div>
-        </div>
+            <div className={styles.cards}>{renderBest()}</div>
+        </>
     )
 }
 export default BestNft

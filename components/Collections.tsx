@@ -10,15 +10,22 @@ import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
 import { Nfts, Attribute, Nft } from '../types/types'
 import { SetNfts } from '../hooks/localStorage'
-import { addElement, deleteElement, getElement, getIndex } from '../utils/utils'
+import {
+    addElement,
+    deleteElement,
+    getElement,
+    getIndex,
+    parseSrc,
+} from '../utils/utils'
 import { useState } from 'react'
 import Pagination from './Pagination'
 import { paginate } from '../paginate'
 
 const Collections = ({ nfts }: Nfts) => {
     const address: string | undefined = useAddress()
-    const [currentPage, setCurrentPage] = useState(1)
-    const pageSize = 10
+
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const pageSize: number = 10
     const { data, setData } = SetNfts()
     const sdk = useSDK()
     const message: string = 'please sign me !'
@@ -70,13 +77,12 @@ const Collections = ({ nfts }: Nfts) => {
     }
 
     const renderNft = ({ metadata }: Nft) => {
-        const parseImage: string = `http://ipfs.io/ipfs/${
-            metadata.image.split('//')[1]
-        }`
+        const parseImage: string = parseSrc(metadata.image)
 
         return (
             <>
-                <ThirdwebNftMedia metadata={metadata} height={'auto'} />
+                <MediaRenderer src={metadata.image} />
+
                 <button
                     onClick={() =>
                         manageLike(metadata.name, address, parseImage)
@@ -99,12 +105,17 @@ const Collections = ({ nfts }: Nfts) => {
                     {renderNft(nft)}
 
                     <h2 className={styles.titleNft}>{nft.metadata.name}</h2>
-                    {nft.metadata.attributes.map((e: Attribute) => (
-                        <li className={styles.list} key={e.value}>
-                            {' '}
-                            {e.trait_type}: {e.value}{' '}
-                        </li>
-                    ))}
+                    {nft.metadata.attributes.map(
+                        (e: Attribute, index: number) => (
+                            <li className={styles.list} key={index}>
+                                {' '}
+                                <a className={styles.attributeKey}>
+                                    {e.trait_type}:{' '}
+                                </a>
+                                <a className={styles.attribute}>{e.value} </a>
+                            </li>
+                        )
+                    )}
                 </div>
             )
         })
@@ -112,13 +123,11 @@ const Collections = ({ nfts }: Nfts) => {
 
     return (
         <>
+            <h1 className={styles.title}>NFT GALLERY!</h1>
             <div>
-                <h1 className={styles.title}>NFT GALLERY!</h1>
-                <div>
-                    <button className={styles.signMe} onClick={signMessage}>
-                        Sign Me !
-                    </button>
-                </div>
+                <button className={styles.signMe} onClick={signMessage}>
+                    Sign Me !
+                </button>
             </div>
 
             <div className={styles.cards}>{renderNfts()}</div>
