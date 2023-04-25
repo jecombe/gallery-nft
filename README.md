@@ -1,11 +1,32 @@
-## Gallery NFTs
+# Gallery NFTs
 
-Create a project using this example:
+A website for an NFT gallery where you can like an NFT on the 20mint collection, view the addresses that have liked the NFT, and see the most popular NFT liked.
+
+### Describe
+
+## Gallery NFTs
+ In order to like the content, you need to connect your wallet and sign the message.
+ 
+## Likes NFTs
+This page allows you to view the NFTs that have received likes.
+
+## Top NFT
+Here you can see the NFT that has received the most likes.
+
+### Install
 
 ```bash
 git clone https://github.com/jecombe/gallery-nft.git && cd gallery-nft
 npm i
 npm run dev
 ```
+Go to navigator with url http://localhost:3000
 
-Go to navigator like google with url http://localhost:3000
+### How is built ?
+
+* [Next.js](https://nextjs.org/) - React Framework
+* [ThirdWeb](https://atom.io/) - Web3 Framework
+* [Typescript](https://atom.io/) - Typed Language
+
+## Auteurs
+* **Jérémy Combe** _alias_ [@jecombe](https://github.com/jecombe)
