@@ -8,14 +8,14 @@ A website for an NFT gallery where you can like an NFT on the 20mint collection,
 ![My Image](readmeImg/home.png). 
 
  In order to like the content, you need to connect your wallet and sign the message.
- ![My Image](readmeImg/welcome.png). 
+ ![My Image](readmeImg/welcome.png)
 
 ## Likes NFTs
-![My Image](readmeImg/likes.png). 
+![My Image](readmeImg/likes.png)  
 This page allows you to view the NFTs that have received likes.
 
 ## Top NFT
-![My Image](readmeImg/top.png). 
+![My Image](readmeImg/top.png)
 Here you can see the NFT that has received the most likes.
 
 ### Install
