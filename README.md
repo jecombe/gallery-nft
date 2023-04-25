@@ -25,8 +25,8 @@ Go to navigator with url http://localhost:3000
 ### How is built ?
 
 * [Next.js](https://nextjs.org/) - React Framework
-* [ThirdWeb](https://atom.io/) - Web3 Framework
-* [Typescript](https://atom.io/) - Typed Language
+* [ThirdWeb](https://thirdweb.com/) - Web3 Framework
+* [Typescript](https://www.typescriptlang.org/) - Typed Language
 
 ## Auteurs
 * **Jérémy Combe** _alias_ [@jecombe](https://github.com/jecombe)
