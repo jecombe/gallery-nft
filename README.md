@@ -2,6 +2,17 @@
 
 A responive website for an NFT gallery where you can like an NFT on the 20mint collection, view the addresses that have liked the NFT, and see the most popular NFT liked. The like system is save locally and persistent with localStorage.
 
+
+### Install
+
+```bash
+git clone https://github.com/jecombe/gallery-nft.git && cd gallery-nft
+npm i
+npm run dev
+```
+Go to navigator with url http://localhost:3000
+
+
 ### Describe
 
 ## Gallery NFTs
@@ -19,15 +30,6 @@ This page allows you to view the NFTs that have received likes.
 ## Top NFT
 ![My Image](readmeImg/top.png)  
 Here you can see the NFT that has received the most likes.  
-
-### Install
-
-```bash
-git clone https://github.com/jecombe/gallery-nft.git && cd gallery-nft
-npm i
-npm run dev
-```
-Go to navigator with url http://localhost:3000
 
 ### How is built ?
 
