@@ -31,18 +31,21 @@ const Collections = ({ nfts }: Nfts) => {
         setCurrentPage(page)
     }
 
-    const manageLike = (nft: string, image: string) => {
-        if (!signature)
+    const manageLike = (
+        nft: string,
+        addr: string | undefined,
+        image: string
+    ) => {
+        if (!addr || !signature) {
             return alert(
-                'If you want like this nft you need to sign with button'
+                'You need to connect yourwallet and sign before use like button'
             )
+        }
 
-        if (!address) return
-
-        if (!data[nft]) data[nft] = { addresses: [address], image }
+        if (!data[nft]) data[nft] = { addresses: [addr], image }
         else if (data[nft]) {
-            const getAddress = getElement(data[nft].addresses, address)
-            if (!getAddress) addElement(data[nft].addresses, address)
+            const getAddress = getElement(data[nft].addresses, addr)
+            if (!getAddress) addElement(data[nft].addresses, addr)
             else {
                 deleteElement(
                     data[nft].addresses,
@@ -91,7 +94,11 @@ const Collections = ({ nfts }: Nfts) => {
             <>
                 <MediaRenderer src={metadata.image} />
 
-                <button onClick={() => manageLike(metadata.name, parseImage)}>
+                <button
+                    onClick={() =>
+                        manageLike(metadata.name, address, parseImage)
+                    }
+                >
                     {renderLike(metadata.name)}
                 </button>
             </>
