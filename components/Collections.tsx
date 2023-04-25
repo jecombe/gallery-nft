@@ -38,10 +38,9 @@ const Collections = ({ nfts }: Nfts) => {
     ) => {
         if (!addr || !signature) {
             return alert(
-                'You need to connect yourwallet and sign before use like button'
+                'You need to connect your wallet OR sign before use like button'
             )
         }
-
         if (!data[nft]) data[nft] = { addresses: [addr], image }
         else if (data[nft]) {
             const getAddress = getElement(data[nft].addresses, addr)
@@ -134,7 +133,7 @@ const Collections = ({ nfts }: Nfts) => {
             <p className={styles.description}>All NFTs on collection 20Mint</p>
             <div className={styles.signature}>
                 {signature ? (
-                    <p>Already signate</p>
+                    <h3>Welcome {address} !</h3>
                 ) : (
                     <>
                         <p className={styles.alertSign}>
