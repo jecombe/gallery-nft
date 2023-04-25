@@ -15,7 +15,7 @@ Go to navigator with url http://localhost:3000
 
 ## Describe
 
-## Gallery NFTs
+### Gallery NFTs
 ![My Image](readmeImg/home.png)  
 
  ```diff
