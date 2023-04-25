@@ -3,7 +3,7 @@ import { MediaRenderer, useSDK } from '@thirdweb-dev/react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
-import { Nfts, Attribute, Nft, LikeStorage } from '../types/types'
+import { Nfts, Attribute, Nft, LikeStorage } from '../utils/types'
 import { SetNfts } from '../hooks/localStorage'
 import {
     addElement,
@@ -14,12 +14,12 @@ import {
 } from '../utils/utils'
 import { useState } from 'react'
 import Pagination from './Pagination'
-import { paginate } from '../paginate'
+import { paginate } from '../utils/paginate'
 
 const Collections = ({ nfts }: Nfts) => {
     //Hooks & States
     const address: string | undefined = useAddress()
-    const [signature, setSignature] = useState('')
+    const [signature, setSignature] = useState<string>('')
     const [currentPage, setCurrentPage] = useState<number>(1)
     const { nftsStorage, setData } = SetNfts()
     //Globals
@@ -96,7 +96,10 @@ const Collections = ({ nfts }: Nfts) => {
         }
     }
 
-    const getNftLikeStorage = (nft: string, addr: string | undefined) => {
+    const getNftLikeStorage = (
+        nft: string,
+        addr: string | undefined
+    ): string | undefined => {
         if (!nftsStorage || !nftsStorage[nft]) return undefined
 
         return getElement(nftsStorage[nft].addresses, addr)

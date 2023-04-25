@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import useLocalStorageState from 'use-local-storage-state'
-import { LikeStorage } from '../types/types'
+import { LikeStorage } from '../utils/types'
 
 export const GetNfts = () => {
     const [nftsStorage, setNfts] = useLocalStorageState<LikeStorage>(
