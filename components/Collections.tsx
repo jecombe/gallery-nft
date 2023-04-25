@@ -23,7 +23,7 @@ const Collections = ({ nfts }: Nfts) => {
     const pageSize: number = 10
     const { data, setData } = SetNfts()
     const sdk = useSDK()
-    const message: string = 'please sign mrereee !'
+    const message: string = 'NFT GALLERY !'
 
     const paginatedPosts = paginate(nfts, currentPage, pageSize)
 
