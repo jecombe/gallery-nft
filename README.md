@@ -28,6 +28,7 @@ npm run dev
 Go to navigator with url http://localhost:3000
 
 ### How is built ?
+- ![#f03c15](https://placehold.co/15x15/f03c15/f03c15.png) `#f03c15`
 
 * [Next.js](https://nextjs.org/) - React Framework
 * [ThirdWeb](https://thirdweb.com/) - Web3 Framework
