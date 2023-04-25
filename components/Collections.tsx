@@ -86,13 +86,15 @@ const Collections = ({ nfts }: Nfts) => {
 
     const signMessage = async () => {
         try {
+            if (!address) return alert('You need to connect your wallet')
             const sig = await sdk?.wallet.sign(message) //use thirdweb SDK to sing message
             if (!sig) {
-                throw new Error('"No signature')
+                return alert('Reject signature')
             }
             setSignature(sig)
         } catch (error) {
-            throw new Error(`signMessage error ${error}`)
+            console.log(error)
+            return alert('error')
         }
     }
 
