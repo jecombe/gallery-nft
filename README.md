@@ -5,7 +5,7 @@ A website for an NFT gallery where you can like an NFT on the 20mint collection,
 ### Describe
 
 ## Gallery NFTs
-![My Image](readmeImg/home.png)
+![My Image](readmeImg/home.png=100x20)
 
  In order to like the content, you need to connect your wallet and sign the message.
  ![My Image](readmeImg/welcome.png)
