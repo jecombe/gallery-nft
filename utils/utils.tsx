@@ -1,4 +1,7 @@
-export const getElement = (array: Array<string>, element: string) => {
+export const getElement = (
+    array: Array<string>,
+    element: string | undefined
+) => {
     return array.find((el) => el === element)
 }
 

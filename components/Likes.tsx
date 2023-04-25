@@ -3,15 +3,15 @@ import styles from '../styles/Home.module.css'
 import { GetNfts } from '../hooks/localStorage'
 
 const Likes = () => {
-    const { nfts } = GetNfts()
+    const { nftsStorage } = GetNfts()
 
     const renderNft = (nft: string) => {
         return (
             <div className={styles.card} key={nft}>
                 <h2 className={styles.titleNft}>{nft}</h2>
-                <MediaRenderer src={nfts[nft].image} />
-                <p>Number likes: {nfts[nft].addresses.length}</p>
-                {nfts[nft].addresses.map((e: string) => (
+                <MediaRenderer src={nftsStorage[nft].image} />
+                <p>Number likes: {nftsStorage[nft].addresses.length}</p>
+                {nftsStorage[nft].addresses.map((e: string) => (
                     <li className={styles.list} key={e}>
                         {' '}
                         {e}{' '}
@@ -28,10 +28,10 @@ const Likes = () => {
             <p className={styles.description}>NFTs likes by peoples</p>
 
             <div className={styles.cards}>
-                {!nfts ? (
+                {!nftsStorage ? (
                     <h1>Loading...</h1>
                 ) : (
-                    Object.keys(nfts).map((nft: string) => {
+                    Object.keys(nftsStorage).map((nft: string) => {
                         return renderNft(nft)
                     })
                 )}

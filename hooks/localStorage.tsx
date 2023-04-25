@@ -3,9 +3,12 @@ import useLocalStorageState from 'use-local-storage-state'
 import { LikeStorage } from '../types/types'
 
 export const GetNfts = () => {
-    const [nfts, setNfts] = useLocalStorageState<LikeStorage>('dataKey', {
-        defaultValue: {},
-    })
+    const [nftsStorage, setNfts] = useLocalStorageState<LikeStorage>(
+        'dataKey',
+        {
+            defaultValue: {},
+        }
+    )
 
     useEffect(() => {
         const obj: LikeStorage = JSON.parse(
@@ -14,17 +17,20 @@ export const GetNfts = () => {
         setNfts(obj)
     }, [])
     return {
-        nfts,
+        nftsStorage,
     }
 }
 
 export const SetNfts = () => {
-    const [data, setNfts] = useLocalStorageState<LikeStorage>('dataKey', {
-        defaultValue: {},
-    })
+    const [nftsStorage, setNfts] = useLocalStorageState<LikeStorage>(
+        'dataKey',
+        {
+            defaultValue: {},
+        }
+    )
 
-    const setData = (data: LikeStorage) => {
-        setNfts(data)
+    const setData = (nftsStorage: LikeStorage) => {
+        setNfts(nftsStorage)
     }
 
     useEffect(() => {
@@ -35,7 +41,7 @@ export const SetNfts = () => {
         setNfts(obj)
     }, [])
     return {
-        data,
+        nftsStorage,
         setData,
     }
 }

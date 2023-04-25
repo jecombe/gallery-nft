@@ -3,7 +3,7 @@ import { MediaRenderer, useSDK } from '@thirdweb-dev/react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
-import { Nfts, Attribute, Nft } from '../types/types'
+import { Nfts, Attribute, Nft, LikeStorage } from '../types/types'
 import { SetNfts } from '../hooks/localStorage'
 import {
     addElement,
@@ -17,18 +17,43 @@ import Pagination from './Pagination'
 import { paginate } from '../paginate'
 
 const Collections = ({ nfts }: Nfts) => {
+    //Hooks & States
     const address: string | undefined = useAddress()
     const [signature, setSignature] = useState('')
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const pageSize: number = 10
-    const { data, setData } = SetNfts()
+    const { nftsStorage, setData } = SetNfts()
+    //Globals
     const sdk = useSDK()
     const message: string = 'NFT GALLERY !'
+    const pageSize: number = 10
 
+    //pagination
     const paginatedPosts = paginate(nfts, currentPage, pageSize)
-
     const onPageChange = (page: number) => {
         setCurrentPage(page)
+    }
+
+    const createNftStorage = (
+        data: LikeStorage,
+        nft: string,
+        addr: string,
+        image: string
+    ) => {
+        data[nft] = {
+            addresses: [addr],
+            image,
+        }
+    }
+
+    const deleteLike = (nft: string, getAddress: string) => {
+        deleteElement(
+            nftsStorage[nft].addresses,
+            getIndex(nftsStorage[nft].addresses, getAddress)
+        ) // delete like from array
+        if (nftsStorage[nft].addresses.length === 0) {
+            // if array of addresses is empty, delete nft from object storage
+            delete nftsStorage[nft]
+        }
     }
 
     const manageLike = (
@@ -41,41 +66,44 @@ const Collections = ({ nfts }: Nfts) => {
                 'You need to connect your wallet OR sign before use like button'
             )
         }
-        if (!data[nft]) data[nft] = { addresses: [addr], image }
-        else if (data[nft]) {
-            const getAddress = getElement(data[nft].addresses, addr)
-            if (!getAddress) addElement(data[nft].addresses, addr)
+        if (!nftsStorage[nft]) {
+            // if nft don't exist inside storage, create object with address who liked
+            createNftStorage(nftsStorage, nft, addr, image)
+        } else if (nftsStorage[nft]) {
+            //if tokenErc721 exist
+            const getAddress = getElement(nftsStorage[nft].addresses, addr)
+            // if address of user don't exist add this on array of addresses
+            if (!getAddress) addElement(nftsStorage[nft].addresses, addr)
             else {
-                deleteElement(
-                    data[nft].addresses,
-                    getIndex(data[nft].addresses, getAddress)
-                )
-                if (data[nft].addresses.length === 0) {
-                    delete data[nft]
-                }
+                // else delete address of user from array of addresses
+                deleteLike(nft, getAddress)
             }
         }
-        setData(data)
-        localStorage.setItem('dataKey', JSON.stringify(data))
-    }
-
-    const getNftLikeStorage = (nft: string, addr: string | undefined) => {
-        if (!data || !data[nft]) return false
-
-        const isFound = data[nft].addresses.find((el) => el === addr)
-
-        return isFound
+        //set all update to local storage and hooks
+        setData(nftsStorage)
+        localStorage.setItem('dataKey', JSON.stringify(nftsStorage))
     }
 
     const signMessage = async () => {
-        const sig = await sdk?.wallet.sign(message)
-        if (!sig) {
-            throw new Error('"No signature')
+        try {
+            const sig = await sdk?.wallet.sign(message) //use thirdweb SDK to sing message
+            if (!sig) {
+                throw new Error('"No signature')
+            }
+            setSignature(sig)
+        } catch (error) {
+            throw new Error(`signMessage error ${error}`)
         }
-        setSignature(sig)
+    }
+
+    const getNftLikeStorage = (nft: string, addr: string | undefined) => {
+        if (!nftsStorage || !nftsStorage[nft]) return undefined
+
+        return getElement(nftsStorage[nft].addresses, addr)
     }
 
     const renderLike = (name: string) => {
+        //if getNftLikeStorage can't found address of user return emptyHeart button
         return (
             <>
                 {getNftLikeStorage(name, address) ? (
@@ -87,6 +115,7 @@ const Collections = ({ nfts }: Nfts) => {
         )
     }
     const renderNft = ({ metadata }: Nft) => {
+        //manage nft storage, add like into storage, delete like and render that
         const parseImage: string = parseSrc(metadata.image)
 
         return (
@@ -105,6 +134,7 @@ const Collections = ({ nfts }: Nfts) => {
     }
 
     const renderNfts = () => {
+        //browse all nfts with pagination receive from alchemy
         return paginatedPosts.map((nft: Nft, id: number) => {
             return (
                 <div className={styles.card} key={id}>
@@ -112,6 +142,7 @@ const Collections = ({ nfts }: Nfts) => {
 
                     <h2 className={styles.titleNft}>{nft.metadata.name}</h2>
                     {nft.metadata.attributes.map(
+                        // browse attribute of nft
                         (e: Attribute, index: number) => (
                             <li className={styles.list} key={index}>
                                 {' '}
