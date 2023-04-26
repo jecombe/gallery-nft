@@ -3,7 +3,7 @@ import { MediaRenderer, useSDK } from '@thirdweb-dev/react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
-import { Attribute, Nft, LikeStorage, Nfts } from '../utils/types'
+import { Attribute, Nft, LikeStorage } from '../utils/types'
 import { SetNfts } from '../hooks/localStorage'
 import {
     addElement,
@@ -19,8 +19,23 @@ const Collections = () => {
     //Hooks & States
     const address: string | undefined = useAddress()
     const [signature, setSignature] = useState<string>('')
-    const { nftsStorage, setData } = SetNfts()
-    const { nfts, loading, totalPages, page, setPages } = GetApi()
+    const {
+        nftsStorage,
+        setData,
+    }: { nftsStorage: LikeStorage; setData: Function } = SetNfts()
+    const {
+        nfts,
+        loading,
+        totalPages,
+        page,
+        setPages,
+    }: {
+        nfts: Nft[]
+        loading: boolean
+        totalPages: number
+        page: number
+        setPages: Function
+    } = GetApi()
 
     //Globals
     const sdk = useSDK()
