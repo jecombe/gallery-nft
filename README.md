@@ -1,6 +1,6 @@
 # Gallery NFTs
 
-A responive website for an NFT gallery where you can like an NFT on the 20mint collection, view the addresses that have liked the NFT, and see the most popular NFT liked. The like system is save locally and persistent with localStorage.
+A responsive website for an NFT gallery where you can like an NFT on the 20mint collection, view the addresses that have liked the NFT, and see the most popular NFT liked. The like system is save locally and persistent with localStorage.
 
 
 ## Install
