@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Nft } from '../utils/types'
 
 export const GetApi = () => {
-    const [nfts, setUserList] = useState<Nft[]>([])
+    const [nfts, setNftList] = useState<Nft[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [totalPages, setTotalPages] = useState<number>(1)
     const [page, setPage] = useState<number>(1)
@@ -19,7 +19,7 @@ export const GetApi = () => {
             )
                 .then((res) => res.json())
                 .then((res) => {
-                    setUserList([...nfts, ...res.nfts])
+                    setNftList([...nfts, ...res.nfts])
                     setTotalPages(nfts.length)
                     setLoading(false)
                 })
