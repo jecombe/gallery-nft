@@ -1,7 +1,7 @@
 import Collections from '../components/Collections'
 import { Nfts } from '../utils/types'
 
-const Home = ({ nfts }: Nfts) => {
+const Home = () => {
     return <Collections />
 }
 

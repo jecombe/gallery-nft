@@ -3,7 +3,7 @@ import { MediaRenderer, useSDK } from '@thirdweb-dev/react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
-import { Attribute, Nft, LikeStorage } from '../utils/types'
+import { Attribute, Nft, LikeStorage, Nfts } from '../utils/types'
 import { SetNfts } from '../hooks/localStorage'
 import {
     addElement,
