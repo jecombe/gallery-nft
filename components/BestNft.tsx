@@ -1,9 +1,10 @@
 import { MediaRenderer } from '@thirdweb-dev/react'
 import styles from '../styles/Home.module.css'
 import { GetNfts } from '../hooks/localStorage'
+import { LikeStorage } from '../utils/types'
 
 const BestNft = () => {
-    const { nftsStorage } = GetNfts()
+    const { nftsStorage }: { nftsStorage: LikeStorage } = GetNfts()
 
     const renderBest = () => {
         let length: number = 1

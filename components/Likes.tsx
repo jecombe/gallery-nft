@@ -1,9 +1,10 @@
 import { MediaRenderer } from '@thirdweb-dev/react'
 import styles from '../styles/Home.module.css'
 import { GetNfts } from '../hooks/localStorage'
+import { LikeStorage } from '../utils/types'
 
 const Likes = () => {
-    const { nftsStorage } = GetNfts()
+    const { nftsStorage }: { nftsStorage: LikeStorage } = GetNfts()
 
     const renderNft = (nft: string) => {
         return (
