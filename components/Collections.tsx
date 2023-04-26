@@ -3,7 +3,7 @@ import { MediaRenderer, useSDK } from '@thirdweb-dev/react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
-import { Nfts, Attribute, Nft, LikeStorage } from '../utils/types'
+import { Attribute, Nft, LikeStorage } from '../utils/types'
 import { SetNfts } from '../hooks/localStorage'
 import {
     addElement,
@@ -13,25 +13,18 @@ import {
     parseSrc,
 } from '../utils/utils'
 import { useState } from 'react'
-import Pagination from './Pagination'
-import { paginate } from '../utils/paginate'
+import { GetApi } from '../hooks/getApi'
 
-const Collections = ({ nfts }: Nfts) => {
+const Collections = () => {
     //Hooks & States
     const address: string | undefined = useAddress()
     const [signature, setSignature] = useState<string>('')
-    const [currentPage, setCurrentPage] = useState<number>(1)
     const { nftsStorage, setData } = SetNfts()
+    const { nfts, loading, totalPages, page, setPages } = GetApi()
+
     //Globals
     const sdk = useSDK()
     const message: string = 'NFT GALLERY !'
-    const pageSize: number = 10
-
-    //pagination
-    const paginatedPosts = paginate(nfts, currentPage, pageSize)
-    const onPageChange = (page: number) => {
-        setCurrentPage(page)
-    }
 
     const createNftStorage = (
         data: LikeStorage,
@@ -140,7 +133,7 @@ const Collections = ({ nfts }: Nfts) => {
 
     const renderNfts = () => {
         //browse all nfts with pagination receive from alchemy
-        return paginatedPosts.map((nft: Nft, id: number) => {
+        return nfts.map((nft: Nft, id: number) => {
             return (
                 <div className={styles.card} key={id}>
                     {renderNft(nft)}
@@ -187,12 +180,14 @@ const Collections = ({ nfts }: Nfts) => {
 
             <div className={styles.cards}>{renderNfts()}</div>
 
-            <Pagination
-                items={nfts.length} // 100
-                currentPage={currentPage} // 1
-                pageSize={pageSize} // 10
-                onPageChange={onPageChange}
-            />
+            {totalPages !== page && (
+                <button
+                    className="btn-load-more"
+                    onClick={() => setPages(page + 10)}
+                >
+                    {loading ? 'Loading...' : 'Load More'}
+                </button>
+            )}
         </>
     )
 }
