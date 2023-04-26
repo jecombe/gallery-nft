@@ -182,7 +182,7 @@ const Collections = () => {
 
             {totalPages !== page && (
                 <button
-                    className="btn-load-more"
+                    className={styles.btnSign}
                     onClick={() => setPages(page + 10)}
                 >
                     {loading ? 'Loading...' : 'Load More'}
