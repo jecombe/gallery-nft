@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css'
-import { MediaRenderer, useSDK } from '@thirdweb-dev/react'
+import { MediaRenderer, ThirdwebSDK, useSDK } from '@thirdweb-dev/react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 import { useAddress } from '@thirdweb-dev/react'
@@ -38,7 +38,7 @@ const Collections = () => {
     } = GetApi()
 
     //Globals
-    const sdk = useSDK()
+    const sdk: ThirdwebSDK | undefined = useSDK()
     const message: string = 'NFT GALLERY !'
 
     const createNftStorage = (
